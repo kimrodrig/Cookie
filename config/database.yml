@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: cookie_production
-  username: cookie
-  password: <%= ENV["COOKIE_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
