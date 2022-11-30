@@ -8,9 +8,13 @@ export default function AuthPage({setCurrentUser, currentUser}) {
 
     return (
         <div>
-            <NavLink to="/login">LOGIN</NavLink>
-            <NavLink to="/signup">SIGNUP</NavLink>
-
+            <nav className="nav-class">
+                <div className="flex md:flex md:flex-grow flex-row justify-end px-8 space-x-6">
+                    <NavLink to="/login" className="nav-link-button">Sign in</NavLink>
+                    <NavLink to="/signup" className="nav-link-button">Sign up</NavLink>
+                </div>
+            </nav>
+            
             <Routes>
                 <Route path="/login" element={<Login setCurrentUser={setCurrentUser} currentUser={currentUser}/>} />
                 <Route path="/signup" element={<SignUp  setCurrentUser={setCurrentUser}/>} />

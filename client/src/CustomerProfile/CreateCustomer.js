@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Geocode from "react-geocode";
 import { useNavigate, json } from 'react-router-dom';
 
@@ -23,6 +23,13 @@ function CreateCustomer({currentUser, setCurrentUser}) {
             (error) => {console.error(error)}
         );
     }
+
+    console.log("address: ", address)
+    console.log('location: ', location)
+
+    useEffect(()=>{
+        setCoordinates();
+    },[address])
 
     function handleSubmit(e){
         e.preventDefault();
@@ -63,13 +70,19 @@ function CreateCustomer({currentUser, setCurrentUser}) {
     }
 
     return (
-        <div>
+        <div className="form-container">
             <h1>User -- Create My Profile</h1>
-            <form onSubmit={(e)=>handleSubmit(e)}>
-                <input type="text" placeholder="Name..." onChange={(e)=>setName(e.target.value)}></input>
-                <input type="text" placeholder="Bio..." onChange={(e)=>setBio(e.target.value)}></input>
-                <input type="text" placeholder="Location..." onChange={(e)=>setAddress(e.target.value)}></input>
-                <button type="submit">Submit</button>
+            <form className="form-class" onSubmit={(e)=>handleSubmit(e)}>
+                <label className="form-label">
+                    <input className="input-class" type="text" placeholder="Name..." onChange={(e)=>setName(e.target.value)}></input>
+                </label>
+                <label className="form-label">
+                    <input className="input-class" type="text" placeholder="Bio..." onChange={(e)=>setBio(e.target.value)}></input>
+                </label>
+                <label className="form-label">
+                    <input className="input-class" type="text" placeholder="Location..." onChange={(e)=>setAddress(e.target.value)}></input>
+                </label>
+                <button className="submit-button" type="submit">Submit</button>
             </form>
         </div>
     )

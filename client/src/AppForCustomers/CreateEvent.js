@@ -49,12 +49,16 @@ function CreateEvent() {
     }
 
     return (
-        <div>
+        <div className="form-container">
             <h1>Create New Event</h1>
-            <form onSubmit={(e)=>handleSubmit(e)}>
-                <input type="text" placeholder="Datetime..." onChange={(e)=>setDatetime(e.target.value)}></input>
-                <input type="text" placeholder="Location..." onChange={(e)=>setAddress(e.target.value)}></input>
-                <button type="submit">Submit</button>
+            <form className="form-class" onSubmit={(e)=>handleSubmit(e)}>
+                <label className="form-label">
+                    <input className="input-class" type="text" placeholder="Datetime..." onChange={(e)=>setDatetime(e.target.value)}></input>
+                </label>
+                <label className="form-label">
+                    <input className="input-class" type="text" placeholder="Location..." onChange={(e)=>setAddress(e.target.value)}></input>
+                </label>
+                <button className="submit-button" type="submit">Submit</button>
             </form>
         </div>
     )

@@ -1,9 +1,8 @@
 import React from "react";
-import { NavLink, useNavigate} from "react-router-dom";
+import { NavLink} from "react-router-dom";
 
 function NavBarChef() {
 
-  const nav = useNavigate();
 
   function handleLogout(){
     fetch('/logout', {
@@ -13,7 +12,6 @@ function NavBarChef() {
     .then(res=>{
         if (res.ok) {
             console.log("Successfully logged out")
-            nav("/")
             window.location.reload(false);
         }
         else {console.log("not ok")}
@@ -22,16 +20,15 @@ function NavBarChef() {
 
   return (
     <div>
-      <nav className="relative w-full flex flex-wrap items-center justify-between py-4 bg-gray-100 text-gray-500 hover:text-gray-700 focus:text-gray-700 shadow-lg navbar navbar-expand-lg navbar-light">
-        <div className="container-fluid w-full flex flex-wrap items-center justify-between px-8">
-            
-            <NavLink exact="true" to="/" className="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0">
+      <nav className="nav-class">
+        <div className="nav-container">
+            <NavLink exact="true" to="/" className="nav-link-button">
               Home
             </NavLink>
-            <NavLink to="/profile" className="nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0">
+            <NavLink to="/profile" className="nav-link-button">
               Profile
             </NavLink> 
-            <NavLink onClick={handleLogout}>
+            <NavLink to="/logout" className="nav-link-button" onClick={handleLogout}>
               Logout
             </NavLink>
         </div>

@@ -1,24 +1,25 @@
 import ChefCard from './ChefCard'
-import {useState} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import { getDistance } from 'geolib';
-// import Map from "./Map/Map.js";
-// import Layers from "./Layers/Layers.js";
-// import { fromLonLat } from 'ol/proj';
-
-// import {
-//     interaction, layer, custom, control, //name spaces
-//     Interactions, Overlays, Controls,     //group
-//     Map, Layers, Overlay, Util, ol    //objects
-//   } from "react-openlayers";
+import Map from "./Map.js"
 
 
-function ChefsPage({chefs}){
+function ChefsPage({chefs, currentUser}){
 
-    const yourCoordinates = [-40.7128, 74.0060]
-    const [center, setCenter] = useState([-40.7128, 74.0060]);
+    const [customer, setCustomer] = useState({})
+
+    const yourCoordinates = customer.location
 
     // console.log('center is' , fromLonLat(center))
     const [sortBy, setSortBy] = useState('Rating')
+
+
+    useEffect(() => {
+        fetch(`/customers/${currentUser.customer_id}`)
+        .then(res=>res.json()).then(customer => setCustomer(customer))
+    },[])
+
+    console.log(yourCoordinates)
 
     function handleChange(event){
         event.preventDefault();
@@ -40,19 +41,18 @@ function ChefsPage({chefs}){
     }
   
 
+
     return(
         <div>
+            Sort by
             <select onChange={(e)=>handleChange(e)}>
-                <option>Sort by</option>
                 <option>Rating</option>
                 <option>Distance</option>
             </select>
-            <h1>Chefs</h1>
-            {/* <Map view={{center: ol.proj.fromLonlat([-32.951106, -60.669952]), projection: 'EPSG:4326', zoom: 5}}>
-                <Layers>
-                    <layer.Tile/>
-                </Layers>
-            </Map> */}
+
+            <Map yourCoordinates={yourCoordinates}/>
+            {/* center on yourCoordinates */}
+
             {sortedChefs.map((chef)=>{return(
                 <ChefCard key={chef.id} chef={chef}/>
             )})}

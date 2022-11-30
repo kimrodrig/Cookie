@@ -1,8 +1,5 @@
 import {useState, useEffect} from 'react'
 import Rating from 'react-rating'
-import EmptyStar from './empty-star.png'
-import FullStar from './full-star.png'
-
 
 
 export default function ProfileContentChef({currentUser}){
@@ -21,13 +18,16 @@ export default function ProfileContentChef({currentUser}){
                     <div class="text-gray-900 font-bold text-xl mb-2">
                         {chef.name}
                     </div>
+                    {currentUser?.avg_rating ? 
                     <Rating 
                         initialRating={currentUser.avg_rating}
                         emptySymbol="fa fa-star-o fa-2x"
                         fullSymbol="fa fa-star fa-2x"
                         readonly="true"
-                    />
-                    <div> {chef.avg_rating ? (chef.avg_rating, " stars") : "No reviews yet."}
+                    /> :
+                    "You're new here! You don't have any reviews yet."
+                    }    
+                    <div> {chef.avg_rating ? (chef.avg_rating, " stars") : ""}
                     </div>
                     <p class="text-gray-700 text-base">{chef.bio}</p>
                     <p class="text-gray-700 text-base">Cuisines: {chef.cuisines}</p>

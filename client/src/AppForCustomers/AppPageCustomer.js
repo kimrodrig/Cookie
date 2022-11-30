@@ -4,6 +4,7 @@ import Home from "../Home"
 import ChefsPage from "./ChefsPage"
 import CreateEvent from "./CreateEvent"
 import ProfileCustomer from "../CustomerProfile/ProfileCustomer"
+import Logout from "../Logout"
 
 export default function AppPageCustomer({currentUser, setCurrentUser, chefs}){
     return (
@@ -11,9 +12,10 @@ export default function AppPageCustomer({currentUser, setCurrentUser, chefs}){
                 <NavBarCustomer/>
                 <Routes>
                     <Route path = "/" element = {<Home currentUser={currentUser}/>}/>
-                    <Route path = "/chefs" element = {<ChefsPage chefs={chefs}/>}/>
+                    <Route path = "/chefs" element = {<ChefsPage chefs={chefs} currentUser={currentUser}/>}/>
                     <Route path = "/create-event" element = {<CreateEvent/>}/>
                     <Route path = "/profile" element = {<ProfileCustomer currentUser={currentUser} setCurrentUser={setCurrentUser}/>}/>
+                    <Route path = "/logout" element = {<Logout/>}/>}
                 </Routes>
         </div>
     )

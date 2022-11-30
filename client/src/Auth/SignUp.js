@@ -6,7 +6,7 @@ export default function SignUp({setCurrentUser}) {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [accountType, setAccountType] = useState('')
+    const [accountType, setAccountType] = useState('chef')
     const [errors, setErrors] = useState([])
 
     const nav = useNavigate();
@@ -37,23 +37,44 @@ export default function SignUp({setCurrentUser}) {
     }
 
     return(
-        <form>
-            <label>
-                Username
-                <input type="text" value={username} onChange={(e)=>setUsername(e.target.value)}/>
-            </label>
-            <label>
-                Password
-                <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
-            </label>
-            <select onChange={(e)=>setAccountType(e.target.value)}>
-                <option value="customer">I am:</option>
-                <option value="chef">a chef</option>
-                <option value="customer">looking for chefs</option>
-            </select>
-            <div>
-                <button type="submit" onClick={handleSignup}>Sign Up</button>
-            </div>
-        </form>
+        <div className="form-container">
+            <form className="form-class">
+                <div className="mb-4">
+                    <label className="form-label" for="username">
+                        Username
+                        <input 
+                            className="input-class" 
+                            type="text"
+                            placeholder="Username" 
+                            value={username} 
+                            onChange={(e)=>setUsername(e.target.value)}
+                        />
+                    </label>
+                    <label className="form-label" for="password">
+                        Password
+                        <input 
+                            className="input-class" 
+                            type="password" 
+                            placeholder="******************"
+                            value={password} 
+                            onChange={(e)=>setPassword(e.target.value)}
+                        />
+                    </label>
+                    <div className="mt-5">
+                        I am
+                        <select onChange={(e)=>setAccountType(e.target.value)}>
+                            <option value="chef">a chef</option>
+                            <option value="customer">looking for chefs</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button 
+                            className="submit-button focus:outline-none focus:shadow-outline"
+                            type="submit"onClick={handleSignup}>Sign Up</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
     )
 }

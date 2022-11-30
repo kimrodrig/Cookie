@@ -34,18 +34,43 @@ export default function Login({setCurrentUser, currentUser}) {
     }
 
     return(
-        <form>
-            <label>
-                Username
-                <input type="text" value={username} onChange={(e)=>setUsername(e.target.value)}/>
-            </label>
-            <label>
-                Password
-                <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
-            </label>
-            <div>
-                <button type="submit" onClick={handleLogin}>Log In</button>
-            </div>
-        </form>
+        <div className="form-container">
+            <form className="form-class">
+                <div className="mb-4">
+                    <label className="form-label" for="username">
+                        Username
+                        <input 
+                            className="input-class" 
+                            type="text"
+                            placeholder="Username" 
+                            value={username} 
+                            onChange={(e)=>setUsername(e.target.value)}
+                        />
+                    </label>
+                    <label className="form-label" for="password">
+                        Password
+                        <input 
+                            className="input-class" 
+                            type="password" 
+                            placeholder="******************"
+                            value={password} 
+                            onChange={(e)=>setPassword(e.target.value)}
+                        />
+                    </label>
+                    <div className="flex items-center justify-between">
+                        <button 
+                            className="submit-button"
+                            type="submit" 
+                            onClick={handleLogin}
+                        >
+                            Log In
+                        </button>
+                        <a class="inline-block align-baseline font-bold mt-5 text-sm text-blue-500 hover:text-blue-800" href="#">
+                            Forgot Password?
+                        </a>
+                    </div>
+                </div>    
+            </form>
+        </div>
     )
 }
