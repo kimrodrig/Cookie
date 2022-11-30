@@ -1,12 +1,15 @@
 import React from 'react';
 import {useState} from 'react'
+import {useNavigate} from 'react-router-dom';
 
-export default function Login({setCurrentUser}) {
+
+export default function Login({setCurrentUser, currentUser}) {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [errors, setErrors] = useState([])
 
+    const nav = useNavigate();    
 
     function handleLogin(e){
         e.preventDefault();
@@ -22,10 +25,12 @@ export default function Login({setCurrentUser}) {
         .then(res=> {
             if (res.ok){
                 res.json().then(e=>setCurrentUser(e))
+                window.location.reload(false);
             } else {
                 res.json().then(e => console.log(Object.values(e)))
             }
         })
+        nav('/')
     }
 
     return(

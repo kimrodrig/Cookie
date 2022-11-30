@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
         else 
             render json: {error: {login: "Invalid password"}}, status: :unauthorized
         end
-    end
+    end 
 
     def destroy
         user = User.find(session[:user_id])

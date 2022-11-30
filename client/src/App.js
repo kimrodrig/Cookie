@@ -1,14 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
 import {useEffect, useState} from 'react';
-import CreateEvent from './CreateEvent';
-import ChefsPage from './ChefsPage';
+import CreateEvent from './AppForCustomers/CreateEvent';
+import ChefsPage from './AppForCustomers/ChefsPage';
 import Home from './Home';
-import Profile from './Profile/Profile';
-import NavBar from './NavBar';
+import Profile from './ChefProfile/ProfileChef';
+import NavBar from './AppForChefs/NavBarChef';
 import SignUp from './Auth/SignUp'
 import Login from './Auth/Login'
-import Logout from './Auth/Logout'
+import AuthPage from './Auth/AuthPage';
+import AppPageChef from './AppForChefs/AppPageChef';
+import AppPageCustomer from './AppForCustomers/AppPageCustomer';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 function App() {
@@ -24,7 +26,7 @@ function App() {
     fetch('/chefs/')
     .then(res => res.json())
     .then(data => setChefs(data))
-  },[]);
+  },[currentUser?.has_profile]);
 
   useEffect(()=>{
     fetch('/customers/')
@@ -45,39 +47,28 @@ function App() {
         res.json().then(user => setCurrentUser(user))
       } 
     })
-  }, []);
+  }, [currentUser?.has_profile]);
 
-  console.log("Current user id:", currentUser.id)
-  console.log("Current user type:", currentUser.account_type)
-  console.log("Does current user have a profile?", currentUser.has_profile)
+  console.log(currentUser);
 
-  function appRoutes(){
+  function whichAppToShow(){
     return (
-      <Routes>
-        {/* {goToLogin()}         */}
-          <Route path = "/" element = {<Home setCurrentUser={setCurrentUser}/>}/>
-          <Route path = "/chefs" element = {<ChefsPage chefs={chefs}/>}/>
-          <Route path = "/create-event" element = {<CreateEvent/>}/>
-          <Route path = "/profile" element = {<Profile/>}/>
-        </Routes>
+      (currentUser?.account_type === "chef") ? 
+      <AppPageChef setCurrentUser={setCurrentUser} currentUser={currentUser} chefs={chefs}/> : 
+      <AppPageCustomer setCurrentUser={setCurrentUser} currentUser={currentUser} chefs={chefs} customers={customers}/> 
     )
   }
-
+  
   return (
     <div className="App">
-        <BrowserRouter>
-          <NavBar/>
-          <Routes>
-          {/* {goToLogin()}         */}
-            <Route path = "/signup" element = {<SignUp setCurrentUser={setCurrentUser}/>}/>
-            <Route path = "/login" element = {<Login setCurrentUser={setCurrentUser}/>}/>
-            <Route path = "/logout" element = {<Logout currentUser={currentUser}/>}/>
-            <Route path = "/" element = {<Home currentUser={currentUser}/>}/>
-            <Route path = "/chefs" element = {<ChefsPage chefs={chefs}/>}/>
-            <Route path = "/create-event" element = {<CreateEvent/>}/>
-            <Route path = "/profile" element = {<Profile currentUser={currentUser} setCurrentUser={setCurrentUser}/>}/>
-          </Routes>
-        </BrowserRouter>
+      <BrowserRouter>
+        {currentUser 
+        ? 
+        whichAppToShow()
+        : 
+        <AuthPage setCurrentUser={setCurrentUser} currentUser={currentUser}/>
+        }
+      </BrowserRouter>
     </div>
   );
 }

@@ -9,7 +9,7 @@ class ChefsController < ApplicationController
 
     def create
         chef = Chef.create!(chef_params)
-        render json: chef
+        render json: chef, status: :created
     end
 
     private

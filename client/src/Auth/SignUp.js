@@ -1,5 +1,6 @@
 import React from 'react';
 import {useState} from 'react'
+import {useNavigate} from 'react-router-dom';
 
 export default function SignUp({setCurrentUser}) {
 
@@ -7,6 +8,8 @@ export default function SignUp({setCurrentUser}) {
     const [password, setPassword] = useState('')
     const [accountType, setAccountType] = useState('')
     const [errors, setErrors] = useState([])
+
+    const nav = useNavigate();
 
     function handleSignup(e){
         e.preventDefault();
@@ -30,6 +33,7 @@ export default function SignUp({setCurrentUser}) {
                 res.json().then(e => console.log(e))
             }
         })
+        nav("/profile")
     }
 
     return(

@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     def create
         if !(User.find_by(username: params[:username]))
             user = User.create!(user_params)
+            session[:user_id] = user.id
             render json: user, status: :created
         else
             render json: {error: {signup: "Username taken"}}, status: :unprocessable_entity
@@ -21,6 +22,7 @@ class UsersController < ApplicationController
         current_user.update(user_params)
         render json: current_user, status: :ok
     end
+    
 
     private
 
