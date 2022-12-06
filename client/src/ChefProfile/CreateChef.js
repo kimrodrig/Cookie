@@ -26,7 +26,7 @@ function CreateChef({currentUser, setCurrentUser}) {
         Geocode.fromAddress(address).then(
             (response) => {
                 const { lat, lng } = response.results[0].geometry.location;
-                setLocation([lat, lng]);
+                setLocation([lng, lat]);
             },
             (error) => {console.error(error)}
         );

@@ -1,22 +1,18 @@
 import {useState, useEffect} from 'react'
 import Rating from 'react-rating'
-import Preferences from './Preferences';
+import MapFn from '../AppForCustomers/MapFn';
+import Preferences from '../Preferences/Preferences';
 
-export default function ProfileContentCustomer({currentUser}){
+export default function ProfileContentCustomer({currentUser, currentCustomer, setCurrentUser}){
 
-const [customer, setCustomer] = useState({})
-
-    useEffect(() => {
-        fetch(`/customers/${currentUser.customer_id}`)
-        .then(res=>res.json()).then(customer => setCustomer(customer))
-    },[])
+    const yourCoordinates = currentCustomer.location
 
     return (
         <div>
-             <div>
+            <div>
                 <div>
                     <div>
-                        {customer.name}
+                        {currentCustomer.name}
                     </div>
                     {currentUser?.avg_rating ? 
                     <Rating 
@@ -27,15 +23,20 @@ const [customer, setCustomer] = useState({})
                     /> :
                     "You're new here! You don't have any reviews yet."
                     }    
-                    <div> {customer.avg_rating ? (customer.avg_rating, " stars") : ""}
+                    <div> {currentCustomer.avg_rating ? (currentCustomer.avg_rating, " stars") : ""}
                     </div>
-                    <p>{customer.bio}</p>
-                    <p>Location: {customer.location}</p>
-                    <p>{customer.reviews?.size ? ("Reviews: ", customer.reviews) : "This is where the reviews go. No reviews -- delete later"}</p>
+                    <p>{currentCustomer.bio}</p>
+                    <p>Location:</p>
+                    {/* <MapFn yourCoordinates={yourCoordinates}/> */}
+                    <p>{currentCustomer.reviews?.size ? ("Reviews: ", currentCustomer.reviews) : "This is where the reviews go. No reviews -- delete later"}</p>
                 </div>
             </div>
 
-            <Preferences />
+            <Preferences 
+                setCurrentUser={setCurrentUser}
+                currentUser={currentUser}
+                currentCustomer={currentCustomer}
+            />
         </div>
     )
 }

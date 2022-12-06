@@ -14,7 +14,9 @@ export default function ProfileChef({currentUser, setCurrentUser}){
 
     return (
         <div>
-            {hasProfile ? <ProfileContentChef currentUser={currentUser}/> : <CreateChef currentUser={currentUser} setCurrentUser={setCurrentUser}/> }
+            {hasProfile ? 
+            <ProfileContentChef currentUser={currentUser}/> : 
+            <CreateChef currentUser={currentUser} setCurrentUser={setCurrentUser}/> }
         </div>
     )
 }

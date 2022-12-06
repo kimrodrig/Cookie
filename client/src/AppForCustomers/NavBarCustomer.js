@@ -28,8 +28,8 @@ function NavBarCustomer() {
                     <NavLink to="/chefs" className="nav-link-button">
                         Chefs
                     </NavLink>
-                    <NavLink to="/create-event" className="nav-link-button">
-                        Create Event
+                    <NavLink to="/events" className="nav-link-button">
+                        Events
                     </NavLink>
                     <NavLink to="/profile" className="nav-link-button">
                         Profile

@@ -30,7 +30,7 @@ def ratings
     return array
 end
 
-10.times do Chef.create!(
+30.times do Chef.create!(
     name: Faker::Name.name,
     image: Faker::LoremFlickr.image(size: "200x200", search_terms: ['cooking']),
     bio: Faker::Lorem.paragraph,
@@ -41,7 +41,7 @@ end
     # change above
     has_ratings: true,
     has_reviews: true,
-    location: [Faker::Address.latitude, Faker::Address.longitude]
+    location: [rand(-74.5..-73.5), rand(40.5..41.0)]
 )
 end
 
@@ -60,7 +60,7 @@ end
 
 10.times do Event.create!(
     datetime: Faker::Time.forward(days: 23),
-    location: [Faker::Address.latitude, Faker::Address.longitude],
+    location: [Faker::Address.longitude, Faker::Address.latitude],
     chef_id: Faker::Number.within(range: 1..10),
     customer_id: Faker::Number.within(range: 1..10)
 )

@@ -4,12 +4,18 @@ class CustomersController < ApplicationController
     end
 
     def show
-        render json: find_customer
+        render json: find_customer, include: 
+            :events 
     end
 
     def create
         customer = Customer.create!(customer_params)
         render json: customer, status: :created
+    end
+
+    def update
+        find_customer.update!(customer_params)
+        render json: find_customer, status: :updated
     end
 
     private

@@ -33,17 +33,17 @@ function CreateEvent() {
         }))
 
         fetch('/events/', {
-         method: "POST",
-         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-            body: JSON.stringify({
-            datetime: datetime,
-            location: location,
-            chef_id: chef_id,
-            user_id: user_id
-          })
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+                body: JSON.stringify({
+                datetime: datetime,
+                location: location,
+                chef_id: chef_id,
+                user_id: user_id
+            })
         })
         
     }

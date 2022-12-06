@@ -1,25 +1,17 @@
 import ChefCard from './ChefCard'
 import {useState, useEffect, useRef} from 'react';
 import { getDistance } from 'geolib';
-import Map from "./Map.js"
+import MapFn from "./MapFn.js"
 
 
-function ChefsPage({chefs, currentUser}){
+function ChefsPage({chefs, currentUser, currentCustomer}){
 
-    const [customer, setCustomer] = useState({})
+    const [selectedChefId, setSelectedChefId] = useState(0)
+    const yourCoordinates = currentCustomer.location
 
-    const yourCoordinates = customer.location
-
+    console.log(selectedChefId)
     // console.log('center is' , fromLonLat(center))
     const [sortBy, setSortBy] = useState('Rating')
-
-
-    useEffect(() => {
-        fetch(`/customers/${currentUser.customer_id}`)
-        .then(res=>res.json()).then(customer => setCustomer(customer))
-    },[])
-
-    console.log(yourCoordinates)
 
     function handleChange(event){
         event.preventDefault();
@@ -39,23 +31,29 @@ function ChefsPage({chefs, currentUser}){
     function getLongLatObj(coordinateArray){
         return {latitude: coordinateArray[0], longitude: coordinateArray[1]}
     }
-  
-
 
     return(
         <div>
+            <MapFn
+                yourCoordinates={yourCoordinates}
+                chefs={chefs}
+                setSelectedChefId={setSelectedChefId}
+            />
+            {(selectedChefId === 0) ?
+                <div></div> :
+                <ChefCard chef={(chefs.find((chef)=> chef.id === selectedChefId))}
+                />
+            }
             Sort by
             <select onChange={(e)=>handleChange(e)}>
                 <option>Rating</option>
                 <option>Distance</option>
             </select>
 
-            <Map yourCoordinates={yourCoordinates}/>
-            {/* center on yourCoordinates */}
-
             {sortedChefs.map((chef)=>{return(
-                <ChefCard key={chef.id} chef={chef}/>
+                <ChefCard key={chef.id} chef={chef} yourCoordinates={yourCoordinates}/>
             )})}
+
         </div>
     )
 }

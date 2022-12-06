@@ -1,71 +1,44 @@
-import React, { Component } from "react";
-import OlMap from "ol/map";
-import OlView from "ol/view";
-import OlLayerTile from "ol/layer/tile";
-import OlSourceOSM from "ol/source/osm";
+import React, { useState, useEffect } from "react";
 
 
-class Map extends Component {
+export default function Map({yourCoordinates, chefs}){
 
-    constructor(props) {
-        super(props);
+    const proj = (require('ol/proj')).default;
+    const [center, setCenter] = useState([0,0])
+    const [zoom, setZoom] = useState(11);
 
-        console.log(this.props.yourCoordinates)
+    useEffect(()=>{
+        if (yourCoordinates) {
+            const posNYC = proj.fromLonLat(yourCoordinates);
+            setCenter(posNYC);
+        }
+    },[yourCoordinates])
 
-        const proj = (require('ol/proj')).default;
-        const posNYC = proj.fromLonLat([-73.979681, 40.6974881]);
+    const iconFeature = new Feature({
+        geometry: new Point(center),
+        name: 'Your Location'
+    });
+    const iconStyle = new Style({
+        image: new Icon({
+            anchor: [0.5, 46],
+            anchorXUnits: 'fraction',
+            anchorYUnits: 'pixels',
+            src: "https://ucarecdn.com/4b516de9-d43d-4b75-9f0f-ab0916bd85eb/marker.png",
+        }),
+    });
+    iconFeature.setStyle(iconStyle);
+    const youAreHereVectorSource = new VectorSource({
+    features: [iconFeature],
+    });
+    const youAreHereVectorLayer = new VectorLayer({
+    source: youAreHereVectorSource,
+    });
 
-        this.state = { center: posNYC, zoom: 10 };
-
-        this.olmap = new OlMap({
-        target: null,
-        layers: [
-            new OlLayerTile({
-            source: new OlSourceOSM()
-            })
-        ],
-        view: new OlView({
-            center: this.state.center,
-            zoom: this.state.zoom,
-            // projection: "EPSG 3857 "
-        })
-        });
-    }
-
-    updateMap() {
-        this.olmap.getView().setCenter(this.state.center);
-        this.olmap.getView().setZoom(this.state.zoom);
-    }
-
-    componentDidMount() {
-        this.olmap.setTarget("map");
-
-        // Listen to map changes
-        this.olmap.on("moveend", () => {
-        let center = this.olmap.getView().getCenter();
-        let zoom = this.olmap.getView().getZoom();
-        this.setState({ center, zoom });
-        });
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        let center = this.olmap.getView().getCenter();
-        let zoom = this.olmap.getView().getZoom();
-        if (center === nextState.center && zoom === nextState.zoom) return false;
-        return true;
-    }
-
-    userAction() {
-        this.setState({ center: [546000, 6868000], zoom: 5 });
-    }
-
-    render() {
-        this.updateMap(); // Update map on render?
-        return (
-        <div id="map" style={{ width: "100%", height: "360px" }}>
-        </div>
-        );
-    }
-    }
-
-export default Map;
+    //set center
+    useEffect(()=>{
+        if (yourCoordinates) {
+            const yourPos = proj.fromLonLat(yourCoordinates);
+            setCenter(yourPos);
+        }
+    },[yourCoordinates])
+}

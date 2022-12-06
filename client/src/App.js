@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import {useEffect, useState} from 'react';
-import CreateEvent from './AppForCustomers/CreateEvent';
+import CreateEvent from './Events/CreateEvent';
 import ChefsPage from './AppForCustomers/ChefsPage';
 import Home from './Home';
 import Profile from './ChefProfile/ProfileChef';

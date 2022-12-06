@@ -3,7 +3,7 @@ import Geocode from "react-geocode";
 import { useNavigate, json } from 'react-router-dom';
 
 
-function CreateCustomer({currentUser, setCurrentUser}) {
+function CreateCustomer({currentUser, setCurrentUser, setCurrentCustomer}) {
 
     Geocode.setApiKey("AIzaSyAHlmCaUPNsdfQELihym8-IttZSFNAWmnw")
 
@@ -18,7 +18,7 @@ function CreateCustomer({currentUser, setCurrentUser}) {
         Geocode.fromAddress(address).then(
             (response) => {
                 const { lat, lng } = response.results[0].geometry.location;
-                setLocation([lat, lng]);
+                setLocation([lng, lat]);
             },
             (error) => {console.error(error)}
         );
@@ -36,22 +36,23 @@ function CreateCustomer({currentUser, setCurrentUser}) {
         setCoordinates()
 
         fetch('/customers/', {
-         method: "POST",
-         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-            body: JSON.stringify({
-            name: name,
-            bio: bio,
-            reviews: [],
-            ratings: [],
-            has_ratings: false,
-            has_reviews: false,
-            location: location,
-          })
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+                body: JSON.stringify({
+                name: name,
+                bio: bio,
+                reviews: [],
+                ratings: [],
+                has_ratings: false,
+                has_reviews: false,
+                location: location,
+            })
         }).then(res => res.json())
         .then(customer => {
+            setCurrentCustomer(customer);
             fetch(`/users/${currentUser.id}`, {
                 method: "PATCH",
                 headers: {
@@ -65,7 +66,7 @@ function CreateCustomer({currentUser, setCurrentUser}) {
             })
             .then(res=>res.json())
             .then(e=>setCurrentUser(e))
-        })           
+        })
         .then(nav('/'))
     }
 

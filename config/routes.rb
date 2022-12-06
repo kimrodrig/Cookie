@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   post "/signup", to: "users#create"
   post "/login", to: "sessions#create"
+  patch "/updateuser", to: "users#update"
   delete "/logout", to: "sessions#destroy"
   get "/auth", to: "users#show"
   get "/showsessions", to: "sessions#index"
