@@ -1,13 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
 import {useEffect, useState} from 'react';
-import CreateEvent from './Events/CreateEvent';
-import ChefsPage from './AppForCustomers/ChefsPage';
-import Home from './Home';
-import Profile from './ChefProfile/ProfileChef';
-import NavBar from './AppForChefs/NavBarChef';
-import SignUp from './Auth/SignUp'
-import Login from './Auth/Login'
 import AuthPage from './Auth/AuthPage';
 import AppPageChef from './AppForChefs/AppPageChef';
 import AppPageCustomer from './AppForCustomers/AppPageCustomer';

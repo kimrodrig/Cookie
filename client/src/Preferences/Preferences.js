@@ -3,27 +3,23 @@ import useCollapse from 'react-collapsed';
 import AccountSettings from './AccountSettings'
 import ProfileSettings from './ProfileSettings'
 
-export default function Preferences({setCurrentUser, currentUser, currentCustomer}){
+export default function Preferences({setCurrentUser, currentUser, currentCustomer, setCurrentCustomer}){
 
-    const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
     
     return (
-        <div className="collapsible">
-            <div className="header" {...getToggleProps()}>
-                Preferences
-            </div>
-            <div {...getCollapseProps()}>
-                <div className="content">
-                    
-                    <AccountSettings 
-                        setCurrentUser={setCurrentUser}
-                        currentUser={currentUser}
-                    />
 
-                    <ProfileSettings/>
+        <div className="content">
+                        
+            <AccountSettings 
+                setCurrentUser={setCurrentUser}
+                currentUser={currentUser}
+            />
 
-                </div>
-            </div>
+            <ProfileSettings
+                currentCustomer={currentCustomer}
+                setCurrentCustomer={setCurrentCustomer}
+            />
+
         </div>
     )
 }

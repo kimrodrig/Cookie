@@ -1,13 +1,13 @@
 import CreateEvent from './CreateEvent';
 import EventContent from './EventContent';
+import useLocation from 'react'
 //further routes here?
 
-export default function EventPage({currentProfile}){
+export default function EventPage({currentCustomer, chefForEvent}){
     
     return (
         <div>
-            <CreateEvent/>
-            <EventContent currentProfile={currentProfile}/> 
+            <EventContent currentCustomer={currentCustomer}/> 
         </div>
 
     )

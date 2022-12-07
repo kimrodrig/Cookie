@@ -1,6 +1,7 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import Geocode from "react-geocode";
 import { useNavigate, json } from 'react-router-dom';
+import Dropzone from '../Dropzone';
 
 
 function CreateCustomer({currentUser, setCurrentUser, setCurrentCustomer}) {
@@ -11,7 +12,8 @@ function CreateCustomer({currentUser, setCurrentUser, setCurrentCustomer}) {
     const [bio, setBio] = useState('')
     const [address, setAddress] = useState('')
     const [location, setLocation] = useState([0,0])
-    
+    const [image, setImage] = useState({});
+
     const nav = useNavigate();
 
     function setCoordinates(){
@@ -23,9 +25,6 @@ function CreateCustomer({currentUser, setCurrentUser, setCurrentCustomer}) {
             (error) => {console.error(error)}
         );
     }
-
-    console.log("address: ", address)
-    console.log('location: ', location)
 
     useEffect(()=>{
         setCoordinates();
@@ -44,6 +43,7 @@ function CreateCustomer({currentUser, setCurrentUser, setCurrentCustomer}) {
                 body: JSON.stringify({
                 name: name,
                 bio: bio,
+                image: image.src,
                 reviews: [],
                 ratings: [],
                 has_ratings: false,
@@ -69,20 +69,21 @@ function CreateCustomer({currentUser, setCurrentUser, setCurrentCustomer}) {
         })
         .then(nav('/'))
     }
-
+    
     return (
         <div className="form-container">
-            <h1>User -- Create My Profile</h1>
+            <h1>Create Your Profile</h1>
             <form className="form-class" onSubmit={(e)=>handleSubmit(e)}>
                 <label className="form-label">
                     <input className="input-class" type="text" placeholder="Name..." onChange={(e)=>setName(e.target.value)}></input>
                 </label>
                 <label className="form-label">
-                    <input className="input-class" type="text" placeholder="Bio..." onChange={(e)=>setBio(e.target.value)}></input>
+                    <input className="input-class" type="text" placeholder="Say a few words about yourself..." onChange={(e)=>setBio(e.target.value)}></input>
                 </label>
                 <label className="form-label">
                     <input className="input-class" type="text" placeholder="Location..." onChange={(e)=>setAddress(e.target.value)}></input>
                 </label>
+                <Dropzone accept={"image"} setImage={setImage} image={image}/>
                 <button className="submit-button" type="submit">Submit</button>
             </form>
         </div>

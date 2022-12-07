@@ -38,21 +38,21 @@ function CreateChef({currentUser, setCurrentUser}) {
         setCoordinates()
 
         fetch('/chefs/', {
-         method: "POST",
-         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-            body: JSON.stringify({
-            name: name,
-            cuisines: cuisineText.split(','),
-            bio: bio,
-            reviews: [],
-            ratings: [],
-            has_ratings: false,
-            has_reviews: false,
-            location: location,
-          })
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+                body: JSON.stringify({
+                name: name,
+                cuisines: cuisineText.split(','),
+                bio: bio,
+                reviews: [],
+                ratings: [],
+                has_ratings: false,
+                has_reviews: false,
+                location: location,
+            })
         }).then(res => res.json())
         .then(chef=>{
             fetch(`/users/${currentUser.id}`, {
@@ -60,7 +60,7 @@ function CreateChef({currentUser, setCurrentUser}) {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
-                  },
+                },
                 body: JSON.stringify({
                     has_profile: true,
                     chef_id: chef.id

@@ -15,7 +15,8 @@ class CustomersController < ApplicationController
 
     def update
         find_customer.update!(customer_params)
-        render json: find_customer, status: :updated
+        render json: find_customer, status: :ok
+        
     end
 
     private
@@ -25,6 +26,6 @@ class CustomersController < ApplicationController
     end
 
     def customer_params
-        params.permit(:name, :bio, :has_ratings, :has_reviews, :avg_rating, reviews: [], ratings: [], location: [])
+        params.permit(:name, :image, :bio, :has_ratings, :has_reviews, :avg_rating, reviews: [], ratings: [], location: [])
     end
 end

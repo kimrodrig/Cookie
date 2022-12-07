@@ -1,17 +1,19 @@
-import {useState} from 'react';
+import {useState, useEffect, useLocation} from 'react';
 import Geocode from "react-geocode";
 
-function CreateEvent() {
+function CreateEvent({currentCustomer, chefForEvent}) {
 
     Geocode.setApiKey("AIzaSyAHlmCaUPNsdfQELihym8-IttZSFNAWmnw")
 
     const [datetime, setDatetime] = useState('')
     const [address, setAddress] = useState('')
     const [location, setLocation] = useState([0,0])
-    
-    const chef_id = 1
-    const user_id = 1
+    const [customerId, setCustomerId] = useState(0)
 
+    useEffect(() => {
+        setCustomerId(currentCustomer?.id)
+    },[currentCustomer])
+    
     function setCoordinates(){
         Geocode.fromAddress(address).then(
             (response) => {
@@ -21,16 +23,17 @@ function CreateEvent() {
             (error) => {console.error(error)}
         );
     }
+
+    console.log(JSON.stringify({
+        datetime: datetime,
+        location: location,
+        chef_id: chefForEvent.id,
+        customer_id: customerId
+    }))
+
     function handleSubmit(e){
         e.preventDefault();
         setCoordinates()
-
-        console.log(JSON.stringify({
-            datetime: datetime,
-            location: location,
-            chef_id: chef_id,
-            user_id: user_id
-        }))
 
         fetch('/events/', {
             method: "POST",
@@ -41,8 +44,8 @@ function CreateEvent() {
                 body: JSON.stringify({
                 datetime: datetime,
                 location: location,
-                chef_id: chef_id,
-                user_id: user_id
+                chef_id: chefForEvent.id,
+                customer_id: customerId
             })
         })
         
@@ -50,7 +53,8 @@ function CreateEvent() {
 
     return (
         <div className="form-container">
-            <h1>Create New Event</h1>
+            <h2 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mt-10">
+            Create New Event {(chefForEvent.name !== undefined) ? `with ${chefForEvent.name}`: ""}</h2>
             <form className="form-class" onSubmit={(e)=>handleSubmit(e)}>
                 <label className="form-label">
                     <input className="input-class" type="text" placeholder="Datetime..." onChange={(e)=>setDatetime(e.target.value)}></input>

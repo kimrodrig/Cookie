@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_26_191219) do
 
   create_table "customers", force: :cascade do |t|
     t.string "name"
+    t.string "image"
     t.string "bio"
     t.string "reviews", array: true
     t.integer "ratings", array: true

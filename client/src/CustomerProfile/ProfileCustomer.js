@@ -11,6 +11,7 @@ export default function ProfileCustomer({currentUser, setCurrentUser, currentCus
                 currentUser={currentUser} 
                 currentCustomer={currentCustomer}
                 setCurrentUser={setCurrentUser}
+                setCurrentCustomer={setCurrentCustomer}
             /> : 
             <CreateCustomer 
                 currentUser={currentUser} 

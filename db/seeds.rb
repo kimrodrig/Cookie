@@ -41,7 +41,7 @@ end
     # change above
     has_ratings: true,
     has_reviews: true,
-    location: [rand(-74.5..-73.5), rand(40.5..41.0)]
+    location: [rand(-74.2..-73.8), rand(40.75..40.9)]
 )
 end
 

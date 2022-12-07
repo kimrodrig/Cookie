@@ -11,23 +11,23 @@ import Feature from 'ol/feature';
 import Point from 'ol/geom/point';
 import Overlay from 'ol/overlay';
 
-// import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
-
-function MapFn({yourCoordinates, chefs, setSelectedChefId}){
+function MapFn({yourCoordinates, chefs, setSelectedChefId, selectedChefId}){
 
     const proj = (require('ol/proj')).default;
     const [center, setCenter] = useState([0,0])
-    const [zoom, setZoom] = useState(11);
+    const [youAreHere, setYouAreHere] = useState([0,0])
+    const [zoom, setZoom] = useState(13);
 
     useEffect(()=>{
         if (yourCoordinates) {
-            const posNYC = proj.fromLonLat(yourCoordinates);
-            setCenter(posNYC);
-        }
+            const yourTransformedCoordinates = proj.fromLonLat(yourCoordinates);
+            setYouAreHere(yourTransformedCoordinates);
+            setCenter(yourTransformedCoordinates);
+        } 
     },[yourCoordinates])
 
     const iconFeature = new Feature({
-        geometry: new Point(center),
+        geometry: new Point(youAreHere),
         name: 'Your Location'
     });
     const iconStyle = new Style({
@@ -98,7 +98,6 @@ function MapFn({yourCoordinates, chefs, setSelectedChefId}){
         });
         for (const chef of chefs){
             map.addLayer(newChefMarkerLayer(chef.location, chef.id, chef.name, chef.avg_rating, chef.cuisines))
-
         }
         //top layer is your own location
         map.addLayer(youAreHereVectorLayer)
@@ -108,12 +107,14 @@ function MapFn({yourCoordinates, chefs, setSelectedChefId}){
                 return feature
             });
             if (feature) {
-                const coordinates = feature.getGeometry().getCoordinates();
-                setSelectedChefId(feature.get('id'))
-                //change hat
+                if (feature["values_"].name != "Your Location"){
+                    const coordinates = feature.getGeometry().getCoordinates();
+                    setSelectedChefId(feature.get('id'))
+                    // setCenter(feature.get("geometry")["flatCoordinates"])    
+                }            
             } else {
                 setSelectedChefId(0)
-                //change hat back
+                // recenter()
             }
         });
 

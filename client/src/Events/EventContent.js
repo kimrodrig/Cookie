@@ -1,7 +1,7 @@
-export default function EventContent({currentProfile}){
+export default function EventContent({currentCustomer}){
     return (
         <div>
-
+            Event Content
         </div>
     )
 }

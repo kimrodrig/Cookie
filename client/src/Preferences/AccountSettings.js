@@ -26,70 +26,63 @@ export default function AccountSettings({currentUser, setCurrentUser}){
     }
 
 
-
     return (
-        <div className="collapsible">
-            <div className="header" {...getToggleProps()}>
-                Account Settings
-            </div>
-            <div {...getCollapseProps()}>
-                <div className="content">
-                    <div className="form-container">
-                        <form className="form-class"> 
-                            <label className="form-label" for="username">
-                            Username
-                                <input 
-                                    className="input-class" 
-                                    type="text"
-                                    placeholder="New Username..." 
-                                    value={username} 
-                                    onChange={(e)=>setUsername(e.target.value)}
-                                />
-                            </label>
-                            <div className="flex items-center justify-between">
-                                <button 
-                                    className="submit-button"
-                                    type="submit" 
-                                    onClick={
-                                        (e) => {
-                                            e.preventDefault()
-                                            whatToUpdate = username;
-                                            update()
-                                    }}
-                                >
-                                    Change Username
-                                </button>
-                            </div>
-                            <label className="form-label" for="password">
-                                Password
-                                <input 
-                                    className="input-class" 
-                                    type="password" 
-                                    placeholder="New Password..." 
-                                    value={password} 
-                                    onChange={(e)=>setPassword(e.target.value)}
-                                />
-                            </label>
-                            <div className="flex items-center justify-between">
-                                <button 
-                                    className="submit-button"
-                                    type="submit" 
-                                    onClick={(e) => {
-                                            e.preventDefault()
-                                            whatToUpdate = username;
-                                            update()
-                                    }}
-                                >
-                                    Change Password
-                                </button>
-                            </div>
-
-                            <div>
-                                CHANGE ACCOUNT DEPENDING ON CURRENT ACCOUNT
-                            </div>
-                        </form>
+        <div className="content">
+            <div className="form-container">
+                <h2 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mt-10">Change your username or password</h2>
+                <form className="form-class"> 
+                    <label className="form-label" for="username">
+                    Username
+                        <input 
+                            className="input-class" 
+                            type="text"
+                            placeholder="New Username..." 
+                            value={username} 
+                            onChange={(e)=>setUsername(e.target.value)}
+                        />
+                    </label>
+                    <div className="flex items-center justify-between">
+                        <button 
+                            className="submit-button"
+                            type="submit" 
+                            onClick={
+                                (e) => {
+                                    e.preventDefault()
+                                    whatToUpdate = username;
+                                    update()
+                            }}
+                        >
+                            Change Username
+                        </button>
                     </div>
-                </div>
+                    <label className="form-label" for="password">
+                        Password
+                        <input 
+                            className="input-class" 
+                            type="password" 
+                            placeholder="New Password..." 
+                            value={password} 
+                            onChange={(e)=>setPassword(e.target.value)}
+                        />
+                    </label>
+                    <div className="flex items-center justify-between">
+                        <button 
+                            className="submit-button"
+                            type="submit" 
+                            onClick={(e) => {
+                                    e.preventDefault()
+                                    whatToUpdate = username;
+                                    update()
+                            }}
+                        >
+                            Change Password
+                        </button>
+                    </div>
+
+                    <div>
+                        CHANGE ACCOUNT DEPENDING ON CURRENT ACCOUNT
+                    </div>
+                </form>
             </div>
         </div>
     )
