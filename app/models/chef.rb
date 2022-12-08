@@ -4,6 +4,7 @@ class Chef < ApplicationRecord
 
     after_create :average_rating, :update_booleans
 
+
     def average_rating
         if self.has_ratings
             self.update(:avg_rating => ratings.sum(0.0)/ratings.size)
@@ -41,6 +42,5 @@ class Chef < ApplicationRecord
     def update_cuisines new_cuisines
         self.update(:cuisines => new_cuisines)
     end
-
 
 end

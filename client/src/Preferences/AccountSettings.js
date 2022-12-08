@@ -1,4 +1,4 @@
-import  {useState, React} from 'react';
+import  {useState, React, useEffect} from 'react';
 import useCollapse from 'react-collapsed';
 
 export default function AccountSettings({currentUser, setCurrentUser}){
@@ -6,6 +6,9 @@ export default function AccountSettings({currentUser, setCurrentUser}){
     const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [usernameButtonShouldBeDisabled, setUsernameButtonShouldBeDisabled] = useState(true)
+    const [passwordButtonShouldBeDisabled, setPasswordButtonShouldBeDisabled] = useState(true)
+
     let whatToUpdate = '';
 
     function update(){
@@ -25,6 +28,11 @@ export default function AccountSettings({currentUser, setCurrentUser}){
         })
     }
 
+    useEffect(()=>{
+        if (username===""){setUsernameButtonShouldBeDisabled(true)} else setUsernameButtonShouldBeDisabled(false);
+        if (password===""){setPasswordButtonShouldBeDisabled(true)} else setPasswordButtonShouldBeDisabled(false);
+    }, [username, password])
+
 
     return (
         <div className="content">
@@ -43,6 +51,7 @@ export default function AccountSettings({currentUser, setCurrentUser}){
                     </label>
                     <div className="flex items-center justify-between">
                         <button 
+                            disabled={usernameButtonShouldBeDisabled}
                             className="submit-button"
                             type="submit" 
                             onClick={
@@ -67,6 +76,7 @@ export default function AccountSettings({currentUser, setCurrentUser}){
                     </label>
                     <div className="flex items-center justify-between">
                         <button 
+                            disabled={passwordButtonShouldBeDisabled}
                             className="submit-button"
                             type="submit" 
                             onClick={(e) => {
@@ -77,10 +87,6 @@ export default function AccountSettings({currentUser, setCurrentUser}){
                         >
                             Change Password
                         </button>
-                    </div>
-
-                    <div>
-                        CHANGE ACCOUNT DEPENDING ON CURRENT ACCOUNT
                     </div>
                 </form>
             </div>

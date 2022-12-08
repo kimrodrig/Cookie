@@ -13,6 +13,7 @@ function CreateCustomer({currentUser, setCurrentUser, setCurrentCustomer}) {
     const [address, setAddress] = useState('')
     const [location, setLocation] = useState([0,0])
     const [image, setImage] = useState({});
+    const [buttonShouldBeDisabled, setButtonShouldBeDisabled] = useState(true)
 
     const nav = useNavigate();
 
@@ -69,22 +70,37 @@ function CreateCustomer({currentUser, setCurrentUser, setCurrentCustomer}) {
         })
         .then(nav('/'))
     }
+
+    useEffect(() => {
+        if (name === '' || bio === '' || !image.src || (location[0] === 0 && location[1] === 0)){
+            setButtonShouldBeDisabled(true)
+        } else {
+            setButtonShouldBeDisabled(false)
+        }
+    },[name, bio, image, location])
+
+    console.log(buttonShouldBeDisabled)
     
     return (
         <div className="form-container">
-            <h1>Create Your Profile</h1>
+            <h2 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mt-10">
+                Create Your Profile
+            </h2>
             <form className="form-class" onSubmit={(e)=>handleSubmit(e)}>
                 <label className="form-label">
-                    <input className="input-class" type="text" placeholder="Name..." onChange={(e)=>setName(e.target.value)}></input>
+                    <input className="input-class" type="text" placeholder="What's your name?" onChange={(e)=>setName(e.target.value)}></input>
                 </label>
                 <label className="form-label">
                     <input className="input-class" type="text" placeholder="Say a few words about yourself..." onChange={(e)=>setBio(e.target.value)}></input>
                 </label>
                 <label className="form-label">
-                    <input className="input-class" type="text" placeholder="Location..." onChange={(e)=>setAddress(e.target.value)}></input>
+                    <input className="input-class" type="text" placeholder="Where are you? Enter a full address..." onChange={(e)=>setAddress(e.target.value)}></input>
                 </label>
-                <Dropzone accept={"image"} setImage={setImage} image={image}/>
-                <button className="submit-button" type="submit">Submit</button>
+                <label className="form-label">
+                    Upload a profile photo
+                    <Dropzone accept="image" setImage={setImage} image={image}/>
+                </label>
+                <button disabled={buttonShouldBeDisabled} className="submit-button" type="submit">Submit</button>
             </form>
         </div>
     )

@@ -5,6 +5,8 @@ class CreateEvents < ActiveRecord::Migration[7.0]
       t.float :location, array: true
       t.integer :chef_id
       t.integer :customer_id
+      t.string :parsed_address
+      t.string :duration
       t.timestamps
     end
   end

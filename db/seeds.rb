@@ -54,7 +54,7 @@ end
     # change above
     has_ratings: true,
     has_reviews: true,
-    location: [Faker::Address.latitude, Faker::Address.longitude]
+    location: [Faker::Address.longitude, Faker::Address.latitude]
 )
 end
 

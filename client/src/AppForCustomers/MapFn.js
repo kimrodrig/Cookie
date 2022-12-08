@@ -125,7 +125,7 @@ function MapFn({yourCoordinates, chefs, setSelectedChefId, selectedChefId}){
     return (
         <div>    
             <div id='map' class="map" 
-            style={{ width: "100%", height: "400px" }}
+            style={{ width: "100%", height: "400px"}}
             ></div>
         </div>
     )

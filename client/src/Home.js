@@ -6,7 +6,7 @@ export default function Home({currentUser}){
     console.log("Current User:", currentUser);
     return(
         <div>
-            Home
+            LOGO HERE
             <About />
         </div>
     )

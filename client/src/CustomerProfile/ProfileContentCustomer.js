@@ -1,6 +1,6 @@
 import {useNavigate} from 'react-router-dom'
 import Rating from 'react-rating'
-import ProfileMap from '../AppForCustomers/ProfileMap';
+import ProfileMap from '../ProfileMap';
 
 export default function ProfileContentCustomer({currentUser, currentCustomer, setCurrentUser, setCurrentCustomer}){
 
@@ -47,16 +47,15 @@ export default function ProfileContentCustomer({currentUser, currentCustomer, se
                                         {currentCustomer.bio}
                                     </p>
                                 </div>
-                                <ProfileMap yourCoordinates={yourCoordinates}/>
-
+                                <div className="p-4 rounded-lg shadow-lg bg-white max-w-sm">
+                                    <ProfileMap yourCoordinates={yourCoordinates}/>
+                                </div>
                             </div>
                         </div>
                         <p>{currentCustomer.reviews?.size ? ("Reviews: ", currentCustomer.reviews) : "This is where the reviews go. No reviews -- delete later"}</p>
                     </div>
                 </div>
             </div>
-
-            
         </div>
     )
 }

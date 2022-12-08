@@ -15,8 +15,7 @@ class CustomersController < ApplicationController
 
     def update
         find_customer.update!(customer_params)
-        render json: find_customer, status: :ok
-        
+        render json: find_customer, status: :ok       
     end
 
     private

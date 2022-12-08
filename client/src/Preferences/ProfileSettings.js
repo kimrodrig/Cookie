@@ -1,5 +1,4 @@
 import {React, useEffect, useState} from 'react';
-import useCollapse from 'react-collapsed';
 import Dropzone from '../Dropzone';
 import Geocode from "react-geocode";
 
@@ -7,15 +6,13 @@ export default function ProfileSettings({currentCustomer, setCurrentCustomer}){
 
     Geocode.setApiKey("AIzaSyAHlmCaUPNsdfQELihym8-IttZSFNAWmnw")
 
-    const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
     const [name, setName] = useState('');
     const [bio, setBio] = useState('');
     const [image, setImage] = useState('');
     const [body, setBody] = useState({});
-
     const [address, setAddress] = useState('')
     const [location, setLocation] = useState([0,0])
-
+    const [buttonShouldBeDisabled, setButtonShouldBeDisabled] = useState(true)
 
     function setCoordinates(){
         Geocode.fromAddress(address).then(
@@ -23,7 +20,10 @@ export default function ProfileSettings({currentCustomer, setCurrentCustomer}){
                 const { lat, lng } = response.results[0].geometry.location;
                 setLocation([lng, lat]);
             },
-            (error) => {console.error(error)}
+            (error) => {
+                console.error(error)
+                setLocation([0,0])
+            }
         );
     }
 
@@ -31,24 +31,30 @@ export default function ProfileSettings({currentCustomer, setCurrentCustomer}){
         setCoordinates();
     },[address])
 
-    console.log(location)
 
     function determineWhatToPatch(){
-        const whatToPatch = {};
-        if (name !== ''){
-            body["name"] = name
-        } if (bio !== ''){
-            body["bio"] = bio
-        } if (location !== ''){
-            body["location"] = location
-        } if (image !== ''){
-            body["image"] = image.src
-        } setBody(body)
+        body["name"] = name;
+        body["bio"] = bio;
+        body["location"] = location;
+        body["image"] = image.src
     }
 
-    console.log(body)
     useEffect(() => {
         determineWhatToPatch();
+        if (name === '' && bio === '' && !image && (location[0] === 0 && location[1] === 0)){
+            setButtonShouldBeDisabled(true)
+        } else {
+            setButtonShouldBeDisabled(false)
+        }
+        if (body["name"] === ""){
+            delete body["name"]
+        } if (body["bio"] === ""){
+            delete body["bio"]
+        } if ((body["location"][0] === 0)&&(body["location"][1] === 0)){
+            delete body["location"]
+        } if (body["image"] === undefined){
+            delete body["image"]
+        }
     }, [name, bio, image, location])
 
     function update(e){
@@ -79,7 +85,7 @@ export default function ProfileSettings({currentCustomer, setCurrentCustomer}){
                         <input className="input-class" type="text" placeholder="Type in a new name..." onChange={(e)=>setName(e.target.value)}></input>
                     </label>
                     <label className="form-label">
-                        Edit your introduction to the community
+                        Edit your intro to the community
                         <input className="input-class" type="text" placeholder="Type in a new introduction..." onChange={(e)=>setBio(e.target.value)}></input>
                     </label>
                     <label className="form-label">
@@ -92,6 +98,7 @@ export default function ProfileSettings({currentCustomer, setCurrentCustomer}){
                     </label>
                     <div className="flex items-center justify-between">
                         <button 
+                            disabled={buttonShouldBeDisabled}
                             className="submit-button"
                             type="submit" 
                             onClick={update}

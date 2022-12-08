@@ -12,6 +12,11 @@ class EventsController < ApplicationController
         render json: event, status: :created
     end
 
+    def destroy
+        find_event.destroy
+        head :no_content
+    end
+
     private
 
     def find_event 
@@ -19,6 +24,6 @@ class EventsController < ApplicationController
     end
 
     def event_params
-        params.permit(:datetime, :location, :chef_id, :user_id)
+        params.permit(:datetime, :chef_id, :customer_id, :parsed_address, :duration, location: [])
     end
 end
