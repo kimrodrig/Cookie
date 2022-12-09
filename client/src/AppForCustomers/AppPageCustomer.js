@@ -61,6 +61,7 @@ export default function AppPageCustomer({currentUser, setCurrentUser, chefs}){
                     currentUser={currentUser}
                     currentCustomer={currentCustomer}
                     setCurrentCustomer={setCurrentCustomer}
+                    isChef={false}
                     />}/>
                 <Route path = "/logout" element = {<Logout/>}/>
             </Routes>

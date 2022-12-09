@@ -37,7 +37,7 @@ function ChefCard({chef, yourCoordinates, setChefForEvent, deactivateClick, setS
                                     src={chef.image}
                                     alt={chef.name}
                                 />:
-                                "Upload an image in profile settings!"
+                                "No image yet! But we assure you this chef exists."
                                 }
                                 
                             </div>

@@ -59,15 +59,15 @@ export default function Login({setCurrentUser, currentUser}) {
                     </label>
                     <div className="flex items-center justify-between">
                         <button 
-                            className="submit-button"
+                            className="submit-button focus:outline-none focus:shadow-outline"
                             type="submit" 
                             onClick={handleLogin}
                         >
                             Log In
                         </button>
-                        <a class="inline-block align-baseline font-bold mt-5 text-sm text-blue-500 hover:text-blue-800" href="#">
+                        <div class="inline-block align-baseline font-bold mt-5 text-sm text-blue-500 hover:text-blue-800" onClick={()=>alert("Maybe just make a new account.")}>
                             Forgot Password?
-                        </a>
+                        </div>
                     </div>
                 </div>    
             </form>

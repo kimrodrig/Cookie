@@ -12,6 +12,11 @@ class ChefsController < ApplicationController
         render json: chef, status: :created
     end
 
+    def update
+        find_chef.update!(chef_params)
+        render json: find_chef, status: :ok       
+    end
+
     private
 
     def find_chef 
@@ -19,6 +24,6 @@ class ChefsController < ApplicationController
     end
 
     def chef_params
-        params.permit(:name, :bio, :has_ratings, :has_reviews, :avg_rating, cuisines: [], reviews: [], ratings: [], location: [])
+        params.permit(:name, :image, :bio, :has_ratings, :has_reviews, :avg_rating, cuisines: [], reviews: [], ratings: [], location: [])
     end
 end

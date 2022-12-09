@@ -1,23 +1,25 @@
-import CreateChef from './CreateChef';
+import CreateChef from '../ChefProfile/CreateChef';
 import ProfileContentChef from './ProfileContentChef';
-import {useEffect, useState} from 'react'
- 
-export default function ProfileChef({currentUser, setCurrentUser}){
 
-    const [hasProfile, setHasProfile] = useState(false)
 
-    useEffect(() => {
-        setHasProfile(currentUser?.has_profile)
-    }, []);
-
-    console.log(currentUser)
+export default function ProfileChef({currentUser, setCurrentUser, currentChef, setCurrentChef}){
 
     return (
         <div>
-            {hasProfile ? 
-            <ProfileContentChef currentUser={currentUser}/> : 
-            <CreateChef currentUser={currentUser} setCurrentUser={setCurrentUser}/> }
+            {currentUser?.has_profile ? 
+            <ProfileContentChef 
+                currentUser={currentUser} 
+                currentChef={currentChef}
+                setCurrentUser={setCurrentUser}
+                setCurrentChef={setCurrentChef}
+            /> : 
+            <CreateChef
+                currentUser={currentUser} 
+                setCurrentUser={setCurrentUser}
+                setCurrentChef={setCurrentChef}
+            /> }
         </div>
     )
 }
+
 

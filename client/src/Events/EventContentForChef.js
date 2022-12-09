@@ -1,17 +1,15 @@
 import {useState, useEffect} from 'react'
-import {useNavigate} from 'react-router-dom'
-import EventCard from './EventCard';
+import EventCardChef from './EventCardChef';
 import PastEventCard from './PastEventCard';
 
-export default function EventContent({currentCustomer, rerender, setRerender}){
+export default function EventContentForChef({currentChef, rerender, setRerender}){
     const [myEvents, setMyEvents] = useState([])
-    const nav = useNavigate();
 
     useEffect(()=>{
-        if (currentCustomer.events){
-            setMyEvents(currentCustomer.events)
+        if (currentChef.events){
+            setMyEvents(currentChef.events)
         }
-    },[currentCustomer, rerender])
+    },[currentChef, rerender])
 
     const sortedEventsByDate = [...myEvents].sort((a,b)=>(Date.parse(a.datetime) - Date.parse(b.datetime)))
     const sortedPastEvents = []
@@ -31,9 +29,9 @@ export default function EventContent({currentCustomer, rerender, setRerender}){
             {(sortedUpcomingEvents.length === 0) ? 
             <div>
                 <h2 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mt-10">
-                    You don't have any scheduled events yet!
+                    You don't have any past events yet!
                 </h2> 
-                <button className="submit-button" onClick={() => nav('/events/create-event')}>Create one now</button>
+                {/* <button className="submit-button" onClick={() => nav('/events/create-event')}>Create one now</button> */}
             </div>
             :
             <div>
@@ -43,7 +41,7 @@ export default function EventContent({currentCustomer, rerender, setRerender}){
                 <div className="flex flex-wrap p-4 gap-4 justify-items-stretch">
                     
                     {sortedUpcomingEvents.map((event) => 
-                        {return <EventCard 
+                        {return <EventCardChef 
                             event={event}
                             setRerender={setRerender}
                         />}
@@ -57,7 +55,7 @@ export default function EventContent({currentCustomer, rerender, setRerender}){
                 <h2 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mt-10">
                     You don't have any scheduled events yet!
                 </h2> 
-                <button className="submit-button" onClick={() => nav('/events/create-event')}>Create one now</button>
+                {/* <button className="submit-button" onClick={() => nav('/events/create-event')}>Create one now</button> */}
             </div>
             :
             <div>

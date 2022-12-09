@@ -1,12 +1,9 @@
 import About from './About';
-import Login from './Auth/Login';
-import SignUp from './Auth/SignUp';
 
 export default function Home({currentUser}){
-    console.log("Current User:", currentUser);
     return(
-        <div>
-            LOGO HERE
+        <div className="flex flex-col">
+            
             <About />
         </div>
     )

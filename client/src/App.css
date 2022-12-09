@@ -64,17 +64,18 @@
 }
 
 .nav-class {
-  @apply relative w-full flex flex-wrap items-center justify-between py-4 bg-gray-100 text-gray-500 shadow-lg;
-  @layer hover:text-gray-700 focus:text-gray-700 
+  @apply border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900;
 }
 
 .nav-container {
-  @apply w-full flex flex-wrap items-center justify-between px-10 mx-10
+  @apply container flex flex-wrap items-center justify-between mx-auto
 }
 
+/* 
 .nav-link-button {
-  @apply text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0 focus:font-bold
-}
+  @apply  py-2 pl-3 pr-4 text-gray-700 rounded; 
+  @layer block hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700;
+} */
 
 .ol-popup {
   position: absolute;

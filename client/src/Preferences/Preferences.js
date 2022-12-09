@@ -1,10 +1,11 @@
 import React from 'react';
 import AccountSettings from './AccountSettings'
 import ProfileSettings from './ProfileSettings'
+import ProfileSettingsChef from './ProfileSettingsChef'
 
-export default function Preferences({setCurrentUser, currentUser, currentCustomer, setCurrentCustomer}){
+export default function Preferences({setCurrentUser, currentUser, currentCustomer, setCurrentCustomer, currentChef, isChef}){
 
-    
+    console.log(currentChef)
     return (
 
         <div className="content">
@@ -32,11 +33,17 @@ export default function Preferences({setCurrentUser, currentUser, currentCustome
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                     data-bs-parent="#accordionExample">
+                        {isChef ?
+                        <ProfileSettingsChef
+                            currentCustomer={currentCustomer}
+                            setCurrentCustomer={setCurrentCustomer}  
+                            currentChef={currentChef}                
+                        />:
                         <ProfileSettings
                             currentCustomer={currentCustomer}
-                            setCurrentCustomer={setCurrentCustomer}
+                            setCurrentCustomer={setCurrentCustomer}                  
                         />
-                        
+                        }
                     </div>
                 </div>
                 <div class="accordion-item bg-white border border-gray-200">

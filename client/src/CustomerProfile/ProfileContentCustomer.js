@@ -2,11 +2,9 @@ import {useNavigate} from 'react-router-dom'
 import Rating from 'react-rating'
 import ProfileMap from '../ProfileMap';
 
-export default function ProfileContentCustomer({currentUser, currentCustomer, setCurrentUser, setCurrentCustomer}){
+export default function ProfileContentCustomer({currentUser, currentCustomer}){
 
     const yourCoordinates = currentCustomer.location
-
-    const nav = useNavigate();
 
     return (
         <div class="w-full lg:w-8/12 px-4 mx-auto">
@@ -52,7 +50,7 @@ export default function ProfileContentCustomer({currentUser, currentCustomer, se
                                 </div>
                             </div>
                         </div>
-                        <p>{currentCustomer.reviews?.size ? ("Reviews: ", currentCustomer.reviews) : "This is where the reviews go. No reviews -- delete later"}</p>
+                        <p>{currentCustomer.reviews?.size ? ("Reviews: ", currentCustomer.reviews) : ""}</p>
                     </div>
                 </div>
             </div>
